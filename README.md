@@ -1,10 +1,8 @@
 # ROS 2 FishBot 导航与巡检
 
-基于 **ROS 2 Jazzy + Gazebo Sim + Nav2** 的移动机器人仿真学习项目。
+基于 **ROS 2 Jazzy + Gazebo Sim + Nav2** 的移动机器人仿真项目。
 将机器人模型、室内场景、已有地图、导航示例、航点巡检、到点图像记录和可选语音服务放在一个可构建的工作空间中。
 
-> 定位：教程复现与个人学习工程整理，而不是实体机器人部署方案。来源和许可见 [NOTICE.md](NOTICE.md)。
-> 配套基础练习独立维护于 [ros2-python-examples](https://github.com/addrun/ros2-python-examples)，无需与本项目放在同一工作空间。
 
 ## 功能包
 
@@ -114,9 +112,9 @@ python3 -m pytest -q tests
 ```
 
 测试范围和实际运行记录见 [docs/VALIDATION.md](docs/VALIDATION.md)。
-CI 检查构建、Python 回归和资产完整性，不代表实体机器人安全验证，也不等同于所有航点在所有显卡上的完整仿真测试。
+CI 检查构建、Python 回归和资产完整性。
 此项目不包含在线建图流程；提供的是已有地图上的定位导航与巡检。
 
 ## 许可
 
-Apache-2.0，保留各包已有许可证。教材 PDF、构建产物、历史备份和个人运行数据不在仓库中。
+Apache-2.0，保留各包已有许可证。构建产物、历史备份和个人运行数据不在仓库中。
