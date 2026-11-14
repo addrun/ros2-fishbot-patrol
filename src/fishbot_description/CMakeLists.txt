@@ -1,0 +1,6 @@
+cmake_minimum_required(VERSION 3.8)
+project(fishbot_description)
+find_package(ament_cmake REQUIRED)
+install(PROGRAMS scripts/vel_helper.py DESTINATION lib/${PROJECT_NAME})
+install(DIRECTORY launch urdf config world DESTINATION share/${PROJECT_NAME})
+ament_package()

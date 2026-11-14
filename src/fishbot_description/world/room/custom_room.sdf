@@ -1,0 +1,2433 @@
+<?xml version='1.0' encoding='utf-8'?>
+<sdf version="1.10">
+  <world name="maze_world">
+    <physics name="1ms" type="ignored">
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1</real_time_factor>
+      <real_time_update_rate>1000</real_time_update_rate>
+    </physics>
+    <plugin name="gz::sim::systems::Physics" filename="gz-sim-physics-system" />
+    <plugin name="gz::sim::systems::UserCommands" filename="gz-sim-user-commands-system" />
+    <plugin name="gz::sim::systems::SceneBroadcaster" filename="gz-sim-scene-broadcaster-system" />
+    <gravity>0 0 -9.8000000000000007</gravity>
+    <magnetic_field>6.0000000000000002e-06 2.3e-05 -4.1999999999999998e-05</magnetic_field>
+    <atmosphere type="adiabatic" />
+    <scene>
+      <ambient>0.400000006 0.400000006 0.400000006 1</ambient>
+      <background>0.699999988 0.699999988 0.699999988 1</background>
+      <shadows>true</shadows>
+    </scene>
+    <model name="ground_plane">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>100 100</size>
+            </plane>
+          </geometry>
+          <surface>
+            <friction>
+              <ode />
+            </friction>
+            <bounce />
+            <contact />
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>100 100</size>
+            </plane>
+          </geometry>
+          <material>
+            <ambient>0.800000012 0.800000012 0.800000012 1</ambient>
+            <diffuse>0.800000012 0.800000012 0.800000012 1</diffuse>
+            <specular>0.800000012 0.800000012 0.800000012 1</specular>
+          </material>
+        </visual>
+        <pose>0 0 0 0 0 0</pose>
+        <inertial>
+          <pose>0 0 0 0 0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <pose>0 0 0 0 0 0</pose>
+      <self_collide>false</self_collide>
+    </model>
+    <model name="custom_maze">
+      <static>true</static>
+      <pose>0 0 0 0 0 0</pose>
+      <link name="wall_north">
+        <pose>0 7 1 0 0 0</pose>
+        <collision name="c_north">
+          <geometry>
+            <box>
+              <size>18 0.14999999999999999 2</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode />
+            </friction>
+            <bounce />
+            <contact />
+          </surface>
+        </collision>
+        <visual name="v_north">
+          <geometry>
+            <box>
+              <size>18 0.14999999999999999 2</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.300000012 0.300000012 0.300000012 1</ambient>
+            <diffuse>0.300000012 0.300000012 0.300000012 1</diffuse>
+          </material>
+        </visual>
+        <inertial>
+          <pose>0 0 0 0 0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <link name="wall_south">
+        <pose>0 -7 1 0 0 0</pose>
+        <collision name="c_south">
+          <geometry>
+            <box>
+              <size>18 0.14999999999999999 2</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode />
+            </friction>
+            <bounce />
+            <contact />
+          </surface>
+        </collision>
+        <visual name="v_south">
+          <geometry>
+            <box>
+              <size>18 0.14999999999999999 2</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.300000012 0.300000012 0.300000012 1</ambient>
+            <diffuse>0.300000012 0.300000012 0.300000012 1</diffuse>
+          </material>
+        </visual>
+        <inertial>
+          <pose>0 0 0 0 0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <link name="wall_west">
+        <pose>-9 0 1 0 0 0</pose>
+        <collision name="c_west">
+          <geometry>
+            <box>
+              <size>0.14999999999999999 14.15 2</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode />
+            </friction>
+            <bounce />
+            <contact />
+          </surface>
+        </collision>
+        <visual name="v_west">
+          <geometry>
+            <box>
+              <size>0.14999999999999999 14.15 2</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.300000012 0.300000012 0.300000012 1</ambient>
+            <diffuse>0.300000012 0.300000012 0.300000012 1</diffuse>
+          </material>
+        </visual>
+        <inertial>
+          <pose>0 0 0 0 0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <link name="wall_east">
+        <pose>9 0 1 0 0 0</pose>
+        <collision name="c_east">
+          <geometry>
+            <box>
+              <size>0.14999999999999999 14.15 2</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode />
+            </friction>
+            <bounce />
+            <contact />
+          </surface>
+        </collision>
+        <visual name="v_east">
+          <geometry>
+            <box>
+              <size>0.14999999999999999 14.15 2</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.300000012 0.300000012 0.300000012 1</ambient>
+            <diffuse>0.300000012 0.300000012 0.300000012 1</diffuse>
+          </material>
+        </visual>
+        <inertial>
+          <pose>0 0 0 0 0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <link name="inner_tl_vertical">
+        <pose>-3 3.5 1 0 0 0</pose>
+        <collision name="c_tl_v">
+          <geometry>
+            <box>
+              <size>0.14999999999999999 3 2</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode />
+            </friction>
+            <bounce />
+            <contact />
+          </surface>
+        </collision>
+        <visual name="v_tl_v">
+          <geometry>
+            <box>
+              <size>0.14999999999999999 3 2</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.699999988 0.300000012 0.300000012 1</ambient>
+            <diffuse>0.699999988 0.300000012 0.300000012 1</diffuse>
+          </material>
+        </visual>
+        <inertial>
+          <pose>0 0 0 0 0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <link name="inner_tl_horizontal">
+        <pose>-5 2 1 0 0 0</pose>
+        <collision name="c_tl_h">
+          <geometry>
+            <box>
+              <size>4 0.14999999999999999 2</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode />
+            </friction>
+            <bounce />
+            <contact />
+          </surface>
+        </collision>
+        <visual name="v_tl_h">
+          <geometry>
+            <box>
+              <size>4 0.14999999999999999 2</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.699999988 0.300000012 0.300000012 1</ambient>
+            <diffuse>0.699999988 0.300000012 0.300000012 1</diffuse>
+          </material>
+        </visual>
+        <inertial>
+          <pose>0 0 0 0 0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <link name="inner_bl_vertical">
+        <pose>-3 -3.5 1 0 0 0</pose>
+        <collision name="c_bl_v">
+          <geometry>
+            <box>
+              <size>0.14999999999999999 3 2</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode />
+            </friction>
+            <bounce />
+            <contact />
+          </surface>
+        </collision>
+        <visual name="v_bl_v">
+          <geometry>
+            <box>
+              <size>0.14999999999999999 3 2</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.300000012 0.300000012 0.699999988 1</ambient>
+            <diffuse>0.300000012 0.300000012 0.699999988 1</diffuse>
+          </material>
+        </visual>
+        <inertial>
+          <pose>0 0 0 0 0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <link name="inner_bl_horizontal">
+        <pose>-5 -2 1 0 0 0</pose>
+        <collision name="c_bl_h">
+          <geometry>
+            <box>
+              <size>4 0.14999999999999999 2</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode />
+            </friction>
+            <bounce />
+            <contact />
+          </surface>
+        </collision>
+        <visual name="v_bl_h">
+          <geometry>
+            <box>
+              <size>4 0.14999999999999999 2</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.300000012 0.300000012 0.699999988 1</ambient>
+            <diffuse>0.300000012 0.300000012 0.699999988 1</diffuse>
+          </material>
+        </visual>
+        <inertial>
+          <pose>0 0 0 0 0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <link name="inner_br_vertical">
+        <pose>3 -4 1 0 0 0</pose>
+        <collision name="c_br_v">
+          <geometry>
+            <box>
+              <size>0.14999999999999999 4 2</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode />
+            </friction>
+            <bounce />
+            <contact />
+          </surface>
+        </collision>
+        <visual name="v_br_v">
+          <geometry>
+            <box>
+              <size>0.14999999999999999 4 2</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.300000012 0.699999988 0.300000012 1</ambient>
+            <diffuse>0.300000012 0.699999988 0.300000012 1</diffuse>
+          </material>
+        </visual>
+        <inertial>
+          <pose>0 0 0 0 0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <link name="inner_br_horizontal">
+        <pose>5 -2 1 0 0 0</pose>
+        <collision name="c_br_h">
+          <geometry>
+            <box>
+              <size>4 0.14999999999999999 2</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode />
+            </friction>
+            <bounce />
+            <contact />
+          </surface>
+        </collision>
+        <visual name="v_br_h">
+          <geometry>
+            <box>
+              <size>4 0.14999999999999999 2</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.300000012 0.699999988 0.300000012 1</ambient>
+            <diffuse>0.300000012 0.699999988 0.300000012 1</diffuse>
+          </material>
+        </visual>
+        <inertial>
+          <pose>0 0 0 0 0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <self_collide>false</self_collide>
+    </model>
+    <model name="Picking_Shelves_1">
+      <link name="base_link">
+        <collision name="pickingshelvesshort_collider_box">
+          <pose>0 0 0.063500000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.90169999999999995 0.44431199999999998 0.025399999999999999</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode />
+            </friction>
+            <bounce />
+            <contact />
+          </surface>
+        </collision>
+        <collision name="pickingshelvesshort005_collider_box">
+          <pose>0 0 0.36830000000000002 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.90169999999999995 0.44431199999999998 0.025399999999999999</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode />
+            </friction>
+            <bounce />
+            <contact />
+          </surface>
+        </collision>
+        <collision name="pickingshelvesshort010_collider_box">
+          <pose>0 0 0.67310000000000003 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.90169999999999995 0.44431199999999998 0.025399999999999999</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode />
+            </friction>
+            <bounce />
+            <contact />
+          </surface>
+        </collision>
+        <collision name="pickingshelvesshort015_collider_box">
+          <pose>0 0 0.97789999999999999 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.90169999999999995 0.44431199999999998 0.025399999999999999</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode />
+            </friction>
+            <bounce />
+            <contact />
+          </surface>
+        </collision>
+        <collision name="pickingshelvesshort020_collider_box">
+          <pose>0 0 1.2827 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.90169999999999995 0.44431199999999998 0.025399999999999999</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode />
+            </friction>
+            <bounce />
+            <contact />
+          </surface>
+        </collision>
+        <collision name="pickingshelvesshort025_collider_box">
+          <pose>0 0 1.5874999999999999 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.90169999999999995 0.44431199999999998 0.025399999999999999</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode />
+            </friction>
+            <bounce />
+            <contact />
+          </surface>
+        </collision>
+        <collision name="pickingshelvesshort030_collider_box">
+          <pose>0 0 1.8923000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.90169999999999995 0.44431199999999998 0.025399999999999999</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode />
+            </friction>
+            <bounce />
+            <contact />
+          </surface>
+        </collision>
+        <collision name="pickingshelvesshort035_collider_box">
+          <pose>-0.43101299999999998 -0.20241300000000001 0.95250000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.052374999999999998 0.052374999999999998 1.905</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode />
+            </friction>
+            <bounce />
+            <contact />
+          </surface>
+        </collision>
+        <collision name="pickingshelvesshort036_collider_box">
+          <pose>-0.43101299999999998 0.20241300000000001 0.95250000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.052374999999999998 0.052374999999999998 1.905</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode />
+            </friction>
+            <bounce />
+            <contact />
+          </surface>
+        </collision>
+        <collision name="pickingshelvesshort037_collider_box">
+          <pose>0.43101299999999998 -0.20241300000000001 0.95250000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.052374999999999998 0.052374999999999998 1.905</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode />
+            </friction>
+            <bounce />
+            <contact />
+          </surface>
+        </collision>
+        <collision name="pickingshelvesshort038_collider_box">
+          <pose>0.43101299999999998 0.20241300000000001 0.95250000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.052374999999999998 0.052374999999999998 1.905</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode />
+            </friction>
+            <bounce />
+            <contact />
+          </surface>
+        </collision>
+        <pose>0 0 0 0 0 0</pose>
+        <inertial>
+          <pose>0 0 0 0 0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+        <visual name="portable_shelf_0">
+          <pose>0 0 0.063500000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.90169999999999995 0.44431199999999998 0.025399999999999999</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.55 0.58 0.62 1</ambient>
+            <diffuse>0.55 0.58 0.62 1</diffuse>
+          </material>
+        </visual>
+        <visual name="portable_shelf_1">
+          <pose>0 0 0.36830000000000002 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.90169999999999995 0.44431199999999998 0.025399999999999999</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.55 0.58 0.62 1</ambient>
+            <diffuse>0.55 0.58 0.62 1</diffuse>
+          </material>
+        </visual>
+        <visual name="portable_shelf_2">
+          <pose>0 0 0.67310000000000003 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.90169999999999995 0.44431199999999998 0.025399999999999999</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.55 0.58 0.62 1</ambient>
+            <diffuse>0.55 0.58 0.62 1</diffuse>
+          </material>
+        </visual>
+        <visual name="portable_shelf_3">
+          <pose>0 0 0.97789999999999999 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.90169999999999995 0.44431199999999998 0.025399999999999999</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.55 0.58 0.62 1</ambient>
+            <diffuse>0.55 0.58 0.62 1</diffuse>
+          </material>
+        </visual>
+        <visual name="portable_shelf_4">
+          <pose>0 0 1.2827 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.90169999999999995 0.44431199999999998 0.025399999999999999</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.55 0.58 0.62 1</ambient>
+            <diffuse>0.55 0.58 0.62 1</diffuse>
+          </material>
+        </visual>
+        <visual name="portable_shelf_5">
+          <pose>0 0 1.5874999999999999 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.90169999999999995 0.44431199999999998 0.025399999999999999</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.55 0.58 0.62 1</ambient>
+            <diffuse>0.55 0.58 0.62 1</diffuse>
+          </material>
+        </visual>
+        <visual name="portable_shelf_6">
+          <pose>0 0 1.8923000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.90169999999999995 0.44431199999999998 0.025399999999999999</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.55 0.58 0.62 1</ambient>
+            <diffuse>0.55 0.58 0.62 1</diffuse>
+          </material>
+        </visual>
+        <visual name="portable_shelf_7">
+          <pose>-0.43101299999999998 -0.20241300000000001 0.95250000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.052374999999999998 0.052374999999999998 1.905</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.55 0.58 0.62 1</ambient>
+            <diffuse>0.55 0.58 0.62 1</diffuse>
+          </material>
+        </visual>
+        <visual name="portable_shelf_8">
+          <pose>-0.43101299999999998 0.20241300000000001 0.95250000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.052374999999999998 0.052374999999999998 1.905</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.55 0.58 0.62 1</ambient>
+            <diffuse>0.55 0.58 0.62 1</diffuse>
+          </material>
+        </visual>
+        <visual name="portable_shelf_9">
+          <pose>0.43101299999999998 -0.20241300000000001 0.95250000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.052374999999999998 0.052374999999999998 1.905</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.55 0.58 0.62 1</ambient>
+            <diffuse>0.55 0.58 0.62 1</diffuse>
+          </material>
+        </visual>
+        <visual name="portable_shelf_10">
+          <pose>0.43101299999999998 0.20241300000000001 0.95250000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.052374999999999998 0.052374999999999998 1.905</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.55 0.58 0.62 1</ambient>
+            <diffuse>0.55 0.58 0.62 1</diffuse>
+          </material>
+        </visual>
+      </link>
+      <pose>-3.5603400000000001 4.2648099999999998 -5.4291362367992859e-07 1.9979957184435687e-19 -3.6391084043001287e-19 -1.5931600000000001</pose>
+      <static>false</static>
+      <self_collide>false</self_collide>
+    </model>
+    <model name="box">
+      <pose>6.5649699999999998 2.5376599999999998 0.49999999990199806 2.3603274160112984e-21 1.6828289612655541e-21 -7.2630811110765745e-22</pose>
+      <link name="box_link">
+        <inertial>
+          <inertia>
+            <ixx>0.16666</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.16666</iyy>
+            <iyz>0</iyz>
+            <izz>0.16666</izz>
+          </inertia>
+          <mass>1</mass>
+          <pose>0 0 0 0 0 0</pose>
+        </inertial>
+        <collision name="box_collision">
+          <geometry>
+            <box>
+              <size>1 1 1</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode />
+            </friction>
+            <bounce />
+            <contact />
+          </surface>
+        </collision>
+        <visual name="box_visual">
+          <geometry>
+            <box>
+              <size>1 1 1</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.300000012 0.300000012 0.300000012 1</ambient>
+            <diffuse>0.699999988 0.699999988 0.699999988 1</diffuse>
+            <specular>1 1 1 1</specular>
+          </material>
+        </visual>
+        <pose>0 0 0 0 0 0</pose>
+        <enable_wind>false</enable_wind>
+      </link>
+      <static>false</static>
+      <self_collide>false</self_collide>
+    </model>
+    <model name="Picking_Shelves_2">
+      <link name="base_link">
+        <collision name="pickingshelvesshort_collider_box">
+          <pose>0 0 0.063500000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.90169999999999995 0.44431199999999998 0.025399999999999999</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode />
+            </friction>
+            <bounce />
+            <contact />
+          </surface>
+        </collision>
+        <collision name="pickingshelvesshort005_collider_box">
+          <pose>0 0 0.36830000000000002 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.90169999999999995 0.44431199999999998 0.025399999999999999</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode />
+            </friction>
+            <bounce />
+            <contact />
+          </surface>
+        </collision>
+        <collision name="pickingshelvesshort010_collider_box">
+          <pose>0 0 0.67310000000000003 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.90169999999999995 0.44431199999999998 0.025399999999999999</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode />
+            </friction>
+            <bounce />
+            <contact />
+          </surface>
+        </collision>
+        <collision name="pickingshelvesshort015_collider_box">
+          <pose>0 0 0.97789999999999999 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.90169999999999995 0.44431199999999998 0.025399999999999999</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode />
+            </friction>
+            <bounce />
+            <contact />
+          </surface>
+        </collision>
+        <collision name="pickingshelvesshort020_collider_box">
+          <pose>0 0 1.2827 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.90169999999999995 0.44431199999999998 0.025399999999999999</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode />
+            </friction>
+            <bounce />
+            <contact />
+          </surface>
+        </collision>
+        <collision name="pickingshelvesshort025_collider_box">
+          <pose>0 0 1.5874999999999999 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.90169999999999995 0.44431199999999998 0.025399999999999999</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode />
+            </friction>
+            <bounce />
+            <contact />
+          </surface>
+        </collision>
+        <collision name="pickingshelvesshort030_collider_box">
+          <pose>0 0 1.8923000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.90169999999999995 0.44431199999999998 0.025399999999999999</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode />
+            </friction>
+            <bounce />
+            <contact />
+          </surface>
+        </collision>
+        <collision name="pickingshelvesshort035_collider_box">
+          <pose>-0.43101299999999998 -0.20241300000000001 0.95250000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.052374999999999998 0.052374999999999998 1.905</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode />
+            </friction>
+            <bounce />
+            <contact />
+          </surface>
+        </collision>
+        <collision name="pickingshelvesshort036_collider_box">
+          <pose>-0.43101299999999998 0.20241300000000001 0.95250000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.052374999999999998 0.052374999999999998 1.905</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode />
+            </friction>
+            <bounce />
+            <contact />
+          </surface>
+        </collision>
+        <collision name="pickingshelvesshort037_collider_box">
+          <pose>0.43101299999999998 -0.20241300000000001 0.95250000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.052374999999999998 0.052374999999999998 1.905</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode />
+            </friction>
+            <bounce />
+            <contact />
+          </surface>
+        </collision>
+        <collision name="pickingshelvesshort038_collider_box">
+          <pose>0.43101299999999998 0.20241300000000001 0.95250000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.052374999999999998 0.052374999999999998 1.905</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode />
+            </friction>
+            <bounce />
+            <contact />
+          </surface>
+        </collision>
+        <pose>0 0 0 0 0 0</pose>
+        <inertial>
+          <pose>0 0 0 0 0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+        <visual name="portable_shelf_0">
+          <pose>0 0 0.063500000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.90169999999999995 0.44431199999999998 0.025399999999999999</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.55 0.58 0.62 1</ambient>
+            <diffuse>0.55 0.58 0.62 1</diffuse>
+          </material>
+        </visual>
+        <visual name="portable_shelf_1">
+          <pose>0 0 0.36830000000000002 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.90169999999999995 0.44431199999999998 0.025399999999999999</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.55 0.58 0.62 1</ambient>
+            <diffuse>0.55 0.58 0.62 1</diffuse>
+          </material>
+        </visual>
+        <visual name="portable_shelf_2">
+          <pose>0 0 0.67310000000000003 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.90169999999999995 0.44431199999999998 0.025399999999999999</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.55 0.58 0.62 1</ambient>
+            <diffuse>0.55 0.58 0.62 1</diffuse>
+          </material>
+        </visual>
+        <visual name="portable_shelf_3">
+          <pose>0 0 0.97789999999999999 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.90169999999999995 0.44431199999999998 0.025399999999999999</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.55 0.58 0.62 1</ambient>
+            <diffuse>0.55 0.58 0.62 1</diffuse>
+          </material>
+        </visual>
+        <visual name="portable_shelf_4">
+          <pose>0 0 1.2827 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.90169999999999995 0.44431199999999998 0.025399999999999999</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.55 0.58 0.62 1</ambient>
+            <diffuse>0.55 0.58 0.62 1</diffuse>
+          </material>
+        </visual>
+        <visual name="portable_shelf_5">
+          <pose>0 0 1.5874999999999999 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.90169999999999995 0.44431199999999998 0.025399999999999999</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.55 0.58 0.62 1</ambient>
+            <diffuse>0.55 0.58 0.62 1</diffuse>
+          </material>
+        </visual>
+        <visual name="portable_shelf_6">
+          <pose>0 0 1.8923000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.90169999999999995 0.44431199999999998 0.025399999999999999</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.55 0.58 0.62 1</ambient>
+            <diffuse>0.55 0.58 0.62 1</diffuse>
+          </material>
+        </visual>
+        <visual name="portable_shelf_7">
+          <pose>-0.43101299999999998 -0.20241300000000001 0.95250000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.052374999999999998 0.052374999999999998 1.905</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.55 0.58 0.62 1</ambient>
+            <diffuse>0.55 0.58 0.62 1</diffuse>
+          </material>
+        </visual>
+        <visual name="portable_shelf_8">
+          <pose>-0.43101299999999998 0.20241300000000001 0.95250000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.052374999999999998 0.052374999999999998 1.905</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.55 0.58 0.62 1</ambient>
+            <diffuse>0.55 0.58 0.62 1</diffuse>
+          </material>
+        </visual>
+        <visual name="portable_shelf_9">
+          <pose>0.43101299999999998 -0.20241300000000001 0.95250000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.052374999999999998 0.052374999999999998 1.905</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.55 0.58 0.62 1</ambient>
+            <diffuse>0.55 0.58 0.62 1</diffuse>
+          </material>
+        </visual>
+        <visual name="portable_shelf_10">
+          <pose>0.43101299999999998 0.20241300000000001 0.95250000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.052374999999999998 0.052374999999999998 1.905</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.55 0.58 0.62 1</ambient>
+            <diffuse>0.55 0.58 0.62 1</diffuse>
+          </material>
+        </visual>
+      </link>
+      <pose>-7.7092000000000001 -6.2496600000000004 -5.6515397411347935e-07 -4.3450727997163245e-19 -1.6153740433092769e-20 1.0936203892471271e-27</pose>
+      <static>false</static>
+      <self_collide>false</self_collide>
+    </model>
+    <model name="Picking_Shelves_3">
+      <link name="base_link">
+        <collision name="pickingshelvesshort_collider_box">
+          <pose>0 0 0.063500000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.90169999999999995 0.44431199999999998 0.025399999999999999</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode />
+            </friction>
+            <bounce />
+            <contact />
+          </surface>
+        </collision>
+        <collision name="pickingshelvesshort005_collider_box">
+          <pose>0 0 0.36830000000000002 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.90169999999999995 0.44431199999999998 0.025399999999999999</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode />
+            </friction>
+            <bounce />
+            <contact />
+          </surface>
+        </collision>
+        <collision name="pickingshelvesshort010_collider_box">
+          <pose>0 0 0.67310000000000003 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.90169999999999995 0.44431199999999998 0.025399999999999999</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode />
+            </friction>
+            <bounce />
+            <contact />
+          </surface>
+        </collision>
+        <collision name="pickingshelvesshort015_collider_box">
+          <pose>0 0 0.97789999999999999 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.90169999999999995 0.44431199999999998 0.025399999999999999</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode />
+            </friction>
+            <bounce />
+            <contact />
+          </surface>
+        </collision>
+        <collision name="pickingshelvesshort020_collider_box">
+          <pose>0 0 1.2827 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.90169999999999995 0.44431199999999998 0.025399999999999999</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode />
+            </friction>
+            <bounce />
+            <contact />
+          </surface>
+        </collision>
+        <collision name="pickingshelvesshort025_collider_box">
+          <pose>0 0 1.5874999999999999 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.90169999999999995 0.44431199999999998 0.025399999999999999</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode />
+            </friction>
+            <bounce />
+            <contact />
+          </surface>
+        </collision>
+        <collision name="pickingshelvesshort030_collider_box">
+          <pose>0 0 1.8923000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.90169999999999995 0.44431199999999998 0.025399999999999999</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode />
+            </friction>
+            <bounce />
+            <contact />
+          </surface>
+        </collision>
+        <collision name="pickingshelvesshort035_collider_box">
+          <pose>-0.43101299999999998 -0.20241300000000001 0.95250000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.052374999999999998 0.052374999999999998 1.905</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode />
+            </friction>
+            <bounce />
+            <contact />
+          </surface>
+        </collision>
+        <collision name="pickingshelvesshort036_collider_box">
+          <pose>-0.43101299999999998 0.20241300000000001 0.95250000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.052374999999999998 0.052374999999999998 1.905</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode />
+            </friction>
+            <bounce />
+            <contact />
+          </surface>
+        </collision>
+        <collision name="pickingshelvesshort037_collider_box">
+          <pose>0.43101299999999998 -0.20241300000000001 0.95250000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.052374999999999998 0.052374999999999998 1.905</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode />
+            </friction>
+            <bounce />
+            <contact />
+          </surface>
+        </collision>
+        <collision name="pickingshelvesshort038_collider_box">
+          <pose>0.43101299999999998 0.20241300000000001 0.95250000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.052374999999999998 0.052374999999999998 1.905</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode />
+            </friction>
+            <bounce />
+            <contact />
+          </surface>
+        </collision>
+        <pose>0 0 0 0 0 0</pose>
+        <inertial>
+          <pose>0 0 0 0 0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+        <visual name="portable_shelf_0">
+          <pose>0 0 0.063500000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.90169999999999995 0.44431199999999998 0.025399999999999999</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.55 0.58 0.62 1</ambient>
+            <diffuse>0.55 0.58 0.62 1</diffuse>
+          </material>
+        </visual>
+        <visual name="portable_shelf_1">
+          <pose>0 0 0.36830000000000002 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.90169999999999995 0.44431199999999998 0.025399999999999999</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.55 0.58 0.62 1</ambient>
+            <diffuse>0.55 0.58 0.62 1</diffuse>
+          </material>
+        </visual>
+        <visual name="portable_shelf_2">
+          <pose>0 0 0.67310000000000003 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.90169999999999995 0.44431199999999998 0.025399999999999999</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.55 0.58 0.62 1</ambient>
+            <diffuse>0.55 0.58 0.62 1</diffuse>
+          </material>
+        </visual>
+        <visual name="portable_shelf_3">
+          <pose>0 0 0.97789999999999999 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.90169999999999995 0.44431199999999998 0.025399999999999999</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.55 0.58 0.62 1</ambient>
+            <diffuse>0.55 0.58 0.62 1</diffuse>
+          </material>
+        </visual>
+        <visual name="portable_shelf_4">
+          <pose>0 0 1.2827 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.90169999999999995 0.44431199999999998 0.025399999999999999</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.55 0.58 0.62 1</ambient>
+            <diffuse>0.55 0.58 0.62 1</diffuse>
+          </material>
+        </visual>
+        <visual name="portable_shelf_5">
+          <pose>0 0 1.5874999999999999 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.90169999999999995 0.44431199999999998 0.025399999999999999</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.55 0.58 0.62 1</ambient>
+            <diffuse>0.55 0.58 0.62 1</diffuse>
+          </material>
+        </visual>
+        <visual name="portable_shelf_6">
+          <pose>0 0 1.8923000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.90169999999999995 0.44431199999999998 0.025399999999999999</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.55 0.58 0.62 1</ambient>
+            <diffuse>0.55 0.58 0.62 1</diffuse>
+          </material>
+        </visual>
+        <visual name="portable_shelf_7">
+          <pose>-0.43101299999999998 -0.20241300000000001 0.95250000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.052374999999999998 0.052374999999999998 1.905</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.55 0.58 0.62 1</ambient>
+            <diffuse>0.55 0.58 0.62 1</diffuse>
+          </material>
+        </visual>
+        <visual name="portable_shelf_8">
+          <pose>-0.43101299999999998 0.20241300000000001 0.95250000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.052374999999999998 0.052374999999999998 1.905</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.55 0.58 0.62 1</ambient>
+            <diffuse>0.55 0.58 0.62 1</diffuse>
+          </material>
+        </visual>
+        <visual name="portable_shelf_9">
+          <pose>0.43101299999999998 -0.20241300000000001 0.95250000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.052374999999999998 0.052374999999999998 1.905</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.55 0.58 0.62 1</ambient>
+            <diffuse>0.55 0.58 0.62 1</diffuse>
+          </material>
+        </visual>
+        <visual name="portable_shelf_10">
+          <pose>0.43101299999999998 0.20241300000000001 0.95250000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.052374999999999998 0.052374999999999998 1.905</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.55 0.58 0.62 1</ambient>
+            <diffuse>0.55 0.58 0.62 1</diffuse>
+          </material>
+        </visual>
+      </link>
+      <pose>5.5081546922147169 -6.3005819959416627 -5.6515366225567313e-07 -3.9530024131059804e-19 4.9277655223456718e-20 -2.1967690972594362e-27</pose>
+      <static>false</static>
+      <self_collide>false</self_collide>
+    </model>
+    <model name="sphere">
+      <pose>0.52266797323644476 -4.4573183752125063 0.49999999980498194 0 0 0</pose>
+      <link name="sphere_link">
+        <inertial>
+          <inertia>
+            <ixx>0.10000000000000001</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.10000000000000001</iyy>
+            <iyz>0</iyz>
+            <izz>0.10000000000000001</izz>
+          </inertia>
+          <mass>1</mass>
+          <pose>0 0 0 0 0 0</pose>
+        </inertial>
+        <collision name="sphere_collision">
+          <geometry>
+            <sphere>
+              <radius>0.5</radius>
+            </sphere>
+          </geometry>
+          <surface>
+            <friction>
+              <ode />
+            </friction>
+            <bounce />
+            <contact />
+          </surface>
+        </collision>
+        <visual name="sphere_visual">
+          <geometry>
+            <sphere>
+              <radius>0.5</radius>
+            </sphere>
+          </geometry>
+          <material>
+            <ambient>0.300000012 0.300000012 0.300000012 1</ambient>
+            <diffuse>0.699999988 0.699999988 0.699999988 1</diffuse>
+            <specular>1 1 1 1</specular>
+          </material>
+        </visual>
+        <pose>0 0 0 0 0 0</pose>
+        <enable_wind>false</enable_wind>
+      </link>
+      <static>false</static>
+      <self_collide>false</self_collide>
+    </model>
+    <model name="box_0">
+      <pose>2.2771172600007166 -2.5498489490674507 0.49999999980497606 1.0048033485058014e-21 -2.4640853465547739e-21 -3.9210766489770922e-22</pose>
+      <link name="box_link">
+        <inertial>
+          <inertia>
+            <ixx>0.16666</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.16666</iyy>
+            <iyz>0</iyz>
+            <izz>0.16666</izz>
+          </inertia>
+          <mass>1</mass>
+          <pose>0 0 0 0 0 0</pose>
+        </inertial>
+        <collision name="box_collision">
+          <geometry>
+            <box>
+              <size>1 1 1</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode />
+            </friction>
+            <bounce />
+            <contact />
+          </surface>
+        </collision>
+        <visual name="box_visual">
+          <geometry>
+            <box>
+              <size>1 1 1</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.300000012 0.300000012 0.300000012 1</ambient>
+            <diffuse>0.699999988 0.699999988 0.699999988 1</diffuse>
+            <specular>1 1 1 1</specular>
+          </material>
+        </visual>
+        <pose>0 0 0 0 0 0</pose>
+        <enable_wind>false</enable_wind>
+      </link>
+      <static>false</static>
+      <self_collide>false</self_collide>
+    </model>
+    <model name="Picking_Shelves_3_1">
+      <link name="base_link">
+        <collision name="pickingshelvesshort_collider_box">
+          <pose>0 0 0.063500000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.90169999999999995 0.44431199999999998 0.025399999999999999</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode />
+            </friction>
+            <bounce />
+            <contact />
+          </surface>
+        </collision>
+        <collision name="pickingshelvesshort005_collider_box">
+          <pose>0 0 0.36830000000000002 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.90169999999999995 0.44431199999999998 0.025399999999999999</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode />
+            </friction>
+            <bounce />
+            <contact />
+          </surface>
+        </collision>
+        <collision name="pickingshelvesshort010_collider_box">
+          <pose>0 0 0.67310000000000003 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.90169999999999995 0.44431199999999998 0.025399999999999999</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode />
+            </friction>
+            <bounce />
+            <contact />
+          </surface>
+        </collision>
+        <collision name="pickingshelvesshort015_collider_box">
+          <pose>0 0 0.97789999999999999 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.90169999999999995 0.44431199999999998 0.025399999999999999</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode />
+            </friction>
+            <bounce />
+            <contact />
+          </surface>
+        </collision>
+        <collision name="pickingshelvesshort020_collider_box">
+          <pose>0 0 1.2827 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.90169999999999995 0.44431199999999998 0.025399999999999999</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode />
+            </friction>
+            <bounce />
+            <contact />
+          </surface>
+        </collision>
+        <collision name="pickingshelvesshort025_collider_box">
+          <pose>0 0 1.5874999999999999 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.90169999999999995 0.44431199999999998 0.025399999999999999</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode />
+            </friction>
+            <bounce />
+            <contact />
+          </surface>
+        </collision>
+        <collision name="pickingshelvesshort030_collider_box">
+          <pose>0 0 1.8923000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.90169999999999995 0.44431199999999998 0.025399999999999999</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode />
+            </friction>
+            <bounce />
+            <contact />
+          </surface>
+        </collision>
+        <collision name="pickingshelvesshort035_collider_box">
+          <pose>-0.43101299999999998 -0.20241300000000001 0.95250000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.052374999999999998 0.052374999999999998 1.905</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode />
+            </friction>
+            <bounce />
+            <contact />
+          </surface>
+        </collision>
+        <collision name="pickingshelvesshort036_collider_box">
+          <pose>-0.43101299999999998 0.20241300000000001 0.95250000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.052374999999999998 0.052374999999999998 1.905</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode />
+            </friction>
+            <bounce />
+            <contact />
+          </surface>
+        </collision>
+        <collision name="pickingshelvesshort037_collider_box">
+          <pose>0.43101299999999998 -0.20241300000000001 0.95250000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.052374999999999998 0.052374999999999998 1.905</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode />
+            </friction>
+            <bounce />
+            <contact />
+          </surface>
+        </collision>
+        <collision name="pickingshelvesshort038_collider_box">
+          <pose>0.43101299999999998 0.20241300000000001 0.95250000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.052374999999999998 0.052374999999999998 1.905</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode />
+            </friction>
+            <bounce />
+            <contact />
+          </surface>
+        </collision>
+        <pose>0 0 0 0 0 0</pose>
+        <inertial>
+          <pose>0 0 0 0 0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+        <visual name="portable_shelf_0">
+          <pose>0 0 0.063500000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.90169999999999995 0.44431199999999998 0.025399999999999999</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.55 0.58 0.62 1</ambient>
+            <diffuse>0.55 0.58 0.62 1</diffuse>
+          </material>
+        </visual>
+        <visual name="portable_shelf_1">
+          <pose>0 0 0.36830000000000002 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.90169999999999995 0.44431199999999998 0.025399999999999999</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.55 0.58 0.62 1</ambient>
+            <diffuse>0.55 0.58 0.62 1</diffuse>
+          </material>
+        </visual>
+        <visual name="portable_shelf_2">
+          <pose>0 0 0.67310000000000003 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.90169999999999995 0.44431199999999998 0.025399999999999999</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.55 0.58 0.62 1</ambient>
+            <diffuse>0.55 0.58 0.62 1</diffuse>
+          </material>
+        </visual>
+        <visual name="portable_shelf_3">
+          <pose>0 0 0.97789999999999999 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.90169999999999995 0.44431199999999998 0.025399999999999999</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.55 0.58 0.62 1</ambient>
+            <diffuse>0.55 0.58 0.62 1</diffuse>
+          </material>
+        </visual>
+        <visual name="portable_shelf_4">
+          <pose>0 0 1.2827 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.90169999999999995 0.44431199999999998 0.025399999999999999</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.55 0.58 0.62 1</ambient>
+            <diffuse>0.55 0.58 0.62 1</diffuse>
+          </material>
+        </visual>
+        <visual name="portable_shelf_5">
+          <pose>0 0 1.5874999999999999 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.90169999999999995 0.44431199999999998 0.025399999999999999</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.55 0.58 0.62 1</ambient>
+            <diffuse>0.55 0.58 0.62 1</diffuse>
+          </material>
+        </visual>
+        <visual name="portable_shelf_6">
+          <pose>0 0 1.8923000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.90169999999999995 0.44431199999999998 0.025399999999999999</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.55 0.58 0.62 1</ambient>
+            <diffuse>0.55 0.58 0.62 1</diffuse>
+          </material>
+        </visual>
+        <visual name="portable_shelf_7">
+          <pose>-0.43101299999999998 -0.20241300000000001 0.95250000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.052374999999999998 0.052374999999999998 1.905</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.55 0.58 0.62 1</ambient>
+            <diffuse>0.55 0.58 0.62 1</diffuse>
+          </material>
+        </visual>
+        <visual name="portable_shelf_8">
+          <pose>-0.43101299999999998 0.20241300000000001 0.95250000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.052374999999999998 0.052374999999999998 1.905</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.55 0.58 0.62 1</ambient>
+            <diffuse>0.55 0.58 0.62 1</diffuse>
+          </material>
+        </visual>
+        <visual name="portable_shelf_9">
+          <pose>0.43101299999999998 -0.20241300000000001 0.95250000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.052374999999999998 0.052374999999999998 1.905</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.55 0.58 0.62 1</ambient>
+            <diffuse>0.55 0.58 0.62 1</diffuse>
+          </material>
+        </visual>
+        <visual name="portable_shelf_10">
+          <pose>0.43101299999999998 0.20241300000000001 0.95250000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.052374999999999998 0.052374999999999998 1.905</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.55 0.58 0.62 1</ambient>
+            <diffuse>0.55 0.58 0.62 1</diffuse>
+          </material>
+        </visual>
+      </link>
+      <pose>3.4261093081842326 5.4090812986335983 -5.5950996575067876e-07 -3.971024848760744e-19 5.0524530987306927e-20 -2.1904125189570805e-27</pose>
+      <static>false</static>
+      <self_collide>false</self_collide>
+    </model>
+    <model name="Picking_Shelves_3_2">
+      <link name="base_link">
+        <collision name="pickingshelvesshort_collider_box">
+          <pose>0 0 0.063500000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.90169999999999995 0.44431199999999998 0.025399999999999999</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode />
+            </friction>
+            <bounce />
+            <contact />
+          </surface>
+        </collision>
+        <collision name="pickingshelvesshort005_collider_box">
+          <pose>0 0 0.36830000000000002 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.90169999999999995 0.44431199999999998 0.025399999999999999</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode />
+            </friction>
+            <bounce />
+            <contact />
+          </surface>
+        </collision>
+        <collision name="pickingshelvesshort010_collider_box">
+          <pose>0 0 0.67310000000000003 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.90169999999999995 0.44431199999999998 0.025399999999999999</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode />
+            </friction>
+            <bounce />
+            <contact />
+          </surface>
+        </collision>
+        <collision name="pickingshelvesshort015_collider_box">
+          <pose>0 0 0.97789999999999999 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.90169999999999995 0.44431199999999998 0.025399999999999999</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode />
+            </friction>
+            <bounce />
+            <contact />
+          </surface>
+        </collision>
+        <collision name="pickingshelvesshort020_collider_box">
+          <pose>0 0 1.2827 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.90169999999999995 0.44431199999999998 0.025399999999999999</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode />
+            </friction>
+            <bounce />
+            <contact />
+          </surface>
+        </collision>
+        <collision name="pickingshelvesshort025_collider_box">
+          <pose>0 0 1.5874999999999999 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.90169999999999995 0.44431199999999998 0.025399999999999999</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode />
+            </friction>
+            <bounce />
+            <contact />
+          </surface>
+        </collision>
+        <collision name="pickingshelvesshort030_collider_box">
+          <pose>0 0 1.8923000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.90169999999999995 0.44431199999999998 0.025399999999999999</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode />
+            </friction>
+            <bounce />
+            <contact />
+          </surface>
+        </collision>
+        <collision name="pickingshelvesshort035_collider_box">
+          <pose>-0.43101299999999998 -0.20241300000000001 0.95250000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.052374999999999998 0.052374999999999998 1.905</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode />
+            </friction>
+            <bounce />
+            <contact />
+          </surface>
+        </collision>
+        <collision name="pickingshelvesshort036_collider_box">
+          <pose>-0.43101299999999998 0.20241300000000001 0.95250000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.052374999999999998 0.052374999999999998 1.905</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode />
+            </friction>
+            <bounce />
+            <contact />
+          </surface>
+        </collision>
+        <collision name="pickingshelvesshort037_collider_box">
+          <pose>0.43101299999999998 -0.20241300000000001 0.95250000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.052374999999999998 0.052374999999999998 1.905</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode />
+            </friction>
+            <bounce />
+            <contact />
+          </surface>
+        </collision>
+        <collision name="pickingshelvesshort038_collider_box">
+          <pose>0.43101299999999998 0.20241300000000001 0.95250000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.052374999999999998 0.052374999999999998 1.905</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode />
+            </friction>
+            <bounce />
+            <contact />
+          </surface>
+        </collision>
+        <pose>0 0 0 0 0 0</pose>
+        <inertial>
+          <pose>0 0 0 0 0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+        <visual name="portable_shelf_0">
+          <pose>0 0 0.063500000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.90169999999999995 0.44431199999999998 0.025399999999999999</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.55 0.58 0.62 1</ambient>
+            <diffuse>0.55 0.58 0.62 1</diffuse>
+          </material>
+        </visual>
+        <visual name="portable_shelf_1">
+          <pose>0 0 0.36830000000000002 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.90169999999999995 0.44431199999999998 0.025399999999999999</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.55 0.58 0.62 1</ambient>
+            <diffuse>0.55 0.58 0.62 1</diffuse>
+          </material>
+        </visual>
+        <visual name="portable_shelf_2">
+          <pose>0 0 0.67310000000000003 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.90169999999999995 0.44431199999999998 0.025399999999999999</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.55 0.58 0.62 1</ambient>
+            <diffuse>0.55 0.58 0.62 1</diffuse>
+          </material>
+        </visual>
+        <visual name="portable_shelf_3">
+          <pose>0 0 0.97789999999999999 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.90169999999999995 0.44431199999999998 0.025399999999999999</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.55 0.58 0.62 1</ambient>
+            <diffuse>0.55 0.58 0.62 1</diffuse>
+          </material>
+        </visual>
+        <visual name="portable_shelf_4">
+          <pose>0 0 1.2827 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.90169999999999995 0.44431199999999998 0.025399999999999999</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.55 0.58 0.62 1</ambient>
+            <diffuse>0.55 0.58 0.62 1</diffuse>
+          </material>
+        </visual>
+        <visual name="portable_shelf_5">
+          <pose>0 0 1.5874999999999999 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.90169999999999995 0.44431199999999998 0.025399999999999999</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.55 0.58 0.62 1</ambient>
+            <diffuse>0.55 0.58 0.62 1</diffuse>
+          </material>
+        </visual>
+        <visual name="portable_shelf_6">
+          <pose>0 0 1.8923000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.90169999999999995 0.44431199999999998 0.025399999999999999</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.55 0.58 0.62 1</ambient>
+            <diffuse>0.55 0.58 0.62 1</diffuse>
+          </material>
+        </visual>
+        <visual name="portable_shelf_7">
+          <pose>-0.43101299999999998 -0.20241300000000001 0.95250000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.052374999999999998 0.052374999999999998 1.905</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.55 0.58 0.62 1</ambient>
+            <diffuse>0.55 0.58 0.62 1</diffuse>
+          </material>
+        </visual>
+        <visual name="portable_shelf_8">
+          <pose>-0.43101299999999998 0.20241300000000001 0.95250000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.052374999999999998 0.052374999999999998 1.905</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.55 0.58 0.62 1</ambient>
+            <diffuse>0.55 0.58 0.62 1</diffuse>
+          </material>
+        </visual>
+        <visual name="portable_shelf_9">
+          <pose>0.43101299999999998 -0.20241300000000001 0.95250000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.052374999999999998 0.052374999999999998 1.905</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.55 0.58 0.62 1</ambient>
+            <diffuse>0.55 0.58 0.62 1</diffuse>
+          </material>
+        </visual>
+        <visual name="portable_shelf_10">
+          <pose>0.43101299999999998 0.20241300000000001 0.95250000000000001 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.052374999999999998 0.052374999999999998 1.905</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.55 0.58 0.62 1</ambient>
+            <diffuse>0.55 0.58 0.62 1</diffuse>
+          </material>
+        </visual>
+      </link>
+      <pose>-0.43816373507129969 5.4735159121656309 -5.5950996575067876e-07 -3.9707537982456359e-19 4.8356126640222233e-20 -2.1466153427964391e-27</pose>
+      <static>false</static>
+      <self_collide>false</self_collide>
+    </model>
+    <model name="sphere_0">
+      <pose>6.5813499713136245 5.4038709312843833 0.499999999902001 0 0 0</pose>
+      <link name="sphere_link">
+        <inertial>
+          <inertia>
+            <ixx>0.10000000000000001</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.10000000000000001</iyy>
+            <iyz>0</iyz>
+            <izz>0.10000000000000001</izz>
+          </inertia>
+          <mass>1</mass>
+          <pose>0 0 0 0 0 0</pose>
+        </inertial>
+        <collision name="sphere_collision">
+          <geometry>
+            <sphere>
+              <radius>0.5</radius>
+            </sphere>
+          </geometry>
+          <surface>
+            <friction>
+              <ode />
+            </friction>
+            <bounce />
+            <contact />
+          </surface>
+        </collision>
+        <visual name="sphere_visual">
+          <geometry>
+            <sphere>
+              <radius>0.5</radius>
+            </sphere>
+          </geometry>
+          <material>
+            <ambient>0.300000012 0.300000012 0.300000012 1</ambient>
+            <diffuse>0.699999988 0.699999988 0.699999988 1</diffuse>
+            <specular>1 1 1 1</specular>
+          </material>
+        </visual>
+        <pose>0 0 0 0 0 0</pose>
+        <enable_wind>false</enable_wind>
+      </link>
+      <static>false</static>
+      <self_collide>false</self_collide>
+    </model>
+    <model name="cylinder">
+      <pose>2.4896851868502283 2.5449002684459208 0.5 0 0 0</pose>
+      <link name="cylinder_link">
+        <inertial>
+          <inertia>
+            <ixx>0.14580000000000001</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.14580000000000001</iyy>
+            <iyz>0</iyz>
+            <izz>0.125</izz>
+          </inertia>
+          <mass>1</mass>
+          <pose>0 0 0 0 0 0</pose>
+        </inertial>
+        <collision name="cylinder_collision">
+          <geometry>
+            <cylinder>
+              <radius>0.5</radius>
+              <length>1</length>
+            </cylinder>
+          </geometry>
+          <surface>
+            <friction>
+              <ode />
+            </friction>
+            <bounce />
+            <contact />
+          </surface>
+        </collision>
+        <visual name="cylinder_visual">
+          <geometry>
+            <cylinder>
+              <radius>0.5</radius>
+              <length>1</length>
+            </cylinder>
+          </geometry>
+          <material>
+            <ambient>0.300000012 0.300000012 0.300000012 1</ambient>
+            <diffuse>0.699999988 0.699999988 0.699999988 1</diffuse>
+            <specular>1 1 1 1</specular>
+          </material>
+        </visual>
+        <pose>0 0 0 0 0 0</pose>
+        <enable_wind>false</enable_wind>
+      </link>
+      <static>false</static>
+      <self_collide>false</self_collide>
+    </model>
+    <model name="cylinder_0">
+      <pose>-6.5118706212695656 4.4846344687702704 0.5 0 0 0</pose>
+      <link name="cylinder_link">
+        <inertial>
+          <inertia>
+            <ixx>0.14580000000000001</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.14580000000000001</iyy>
+            <iyz>0</iyz>
+            <izz>0.125</izz>
+          </inertia>
+          <mass>1</mass>
+          <pose>0 0 0 0 0 0</pose>
+        </inertial>
+        <collision name="cylinder_collision">
+          <geometry>
+            <cylinder>
+              <radius>0.5</radius>
+              <length>1</length>
+            </cylinder>
+          </geometry>
+          <surface>
+            <friction>
+              <ode />
+            </friction>
+            <bounce />
+            <contact />
+          </surface>
+        </collision>
+        <visual name="cylinder_visual">
+          <geometry>
+            <cylinder>
+              <radius>0.5</radius>
+              <length>1</length>
+            </cylinder>
+          </geometry>
+          <material>
+            <ambient>0.300000012 0.300000012 0.300000012 1</ambient>
+            <diffuse>0.699999988 0.699999988 0.699999988 1</diffuse>
+            <specular>1 1 1 1</specular>
+          </material>
+        </visual>
+        <pose>0 0 0 0 0 0</pose>
+        <enable_wind>false</enable_wind>
+      </link>
+      <static>false</static>
+      <self_collide>false</self_collide>
+    </model>
+    <model name="cone">
+      <pose>-5.5401847624553975 -4.4977064829200266 0.5 0 0 0</pose>
+      <link name="cone_link">
+        <inertial>
+          <inertia>
+            <ixx>0.074999999999999997</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.074999999999999997</iyy>
+            <iyz>0</iyz>
+            <izz>0.074999999999999997</izz>
+          </inertia>
+          <mass>1</mass>
+          <pose>0 0 0 0 0 0</pose>
+        </inertial>
+        <collision name="cone_collision">
+          <geometry>
+            <cone>
+              <radius>0.5</radius>
+              <length>1</length>
+            </cone>
+          </geometry>
+          <surface>
+            <friction>
+              <ode />
+            </friction>
+            <bounce />
+            <contact />
+          </surface>
+        </collision>
+        <visual name="cone_visual">
+          <geometry>
+            <cone>
+              <radius>0.5</radius>
+              <length>1</length>
+            </cone>
+          </geometry>
+          <material>
+            <ambient>0.300000012 0.300000012 0.300000012 1</ambient>
+            <diffuse>0.699999988 0.699999988 0.699999988 1</diffuse>
+            <specular>1 1 1 1</specular>
+          </material>
+        </visual>
+        <pose>0 0 0 0 0 0</pose>
+        <enable_wind>false</enable_wind>
+      </link>
+      <static>false</static>
+      <self_collide>false</self_collide>
+    </model>
+    <light name="sun" type="directional">
+      <pose>0 0 10 0 0 0</pose>
+      <cast_shadows>true</cast_shadows>
+      <intensity>1</intensity>
+      <direction>-0.5 0.10000000000000001 -0.90000000000000002</direction>
+      <diffuse>0.800000012 0.800000012 0.800000012 1</diffuse>
+      <specular>0.200000003 0.200000003 0.200000003 1</specular>
+      <attenuation>
+        <range>10</range>
+        <linear>1</linear>
+        <constant>1</constant>
+        <quadratic>0</quadratic>
+      </attenuation>
+      <spot>
+        <inner_angle>0</inner_angle>
+        <outer_angle>0</outer_angle>
+        <falloff>0</falloff>
+      </spot>
+    </light>
+    <plugin filename="gz-sim-sensors-system" name="gz::sim::systems::Sensors">
+      <render_engine>ogre2</render_engine>
+    </plugin>
+    <plugin filename="gz-sim-imu-system" name="gz::sim::systems::Imu" />
+  </world>
+</sdf>

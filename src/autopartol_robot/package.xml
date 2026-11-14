@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='utf-8'?>
+<package format="3">
+  <name>autopartol_robot</name>
+  <version>0.0.0</version>
+  <description>Waypoint patrol, image recording and optional speech for FishBot.</description>
+  <maintainer email="141168900+addrun@users.noreply.github.com">addrun</maintainer>
+  <license>Apache-2.0</license>
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+  <exec_depend>rclpy</exec_depend>
+  <exec_depend>nav2_simple_commander</exec_depend>
+  <exec_depend>autopatrol_interfaces</exec_depend>
+  <exec_depend>geometry_msgs</exec_depend>
+  <exec_depend>sensor_msgs</exec_depend>
+  <exec_depend>tf2_ros</exec_depend>
+  <exec_depend>tf_transformations</exec_depend>
+  <exec_depend>cv_bridge</exec_depend>
+  <exec_depend>python3-opencv</exec_depend>
+  <exec_depend>ament_index_python</exec_depend>
+  <exec_depend>launch</exec_depend>
+  <exec_depend>launch_ros</exec_depend>
+  <exec_depend>fishbot_description</exec_depend>
+  <exec_depend>fishbot_navigation2</exec_depend>
+  <test_depend>python3-pytest</test_depend>
+</package>
